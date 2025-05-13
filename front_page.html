@@ -1,0 +1,192 @@
+
+<main class="content px-3 py-2">
+    <div class="container-fluid">
+
+        <div class="row">
+
+            <div class="row g-3 mb-4">
+                <!-- 今日人次數 -->
+                <div class="col-6 col-md-2">
+                    <div class="card text-white bg-info h-100">
+                        <div class="card-body d-flex align-items-center">
+                            <i class="fa-solid fa-user fa-2x me-3"></i>
+                            <div>
+                                <p class="mb-1">今日人次數</p>
+                                <h3 class="mb-0">0</h3>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 今日累計未戴安全帽次數 -->
+                <div class="col-6 col-md-2">
+                    <div class="card text-white bg-warning h-100">
+                        <div class="card-body d-flex align-items-center">
+                            <i class="fa-solid fa-triangle-exclamation fa-2x me-3"></i>
+                            <div>
+                                <p class="mb-1">今日累計未戴安全帽</p>
+                                <h3 class="mb-0">0</h3>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 今日累計危險區域警報次數 -->
+                <div class="col-6 col-md-2">
+                    <div class="card text-white bg-warning h-100">
+                        <div class="card-body d-flex align-items-center">
+                            <i class="fa-solid fa-triangle-exclamation fa-2x me-3"></i>
+                            <div>
+                                <p class="mb-1">今日累計危險警報</p>
+                                <h3 class="mb-0">0</h3>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 本週累計未戴安全帽次數 -->
+                <div class="col-6 col-md-2">
+                    <div class="card text-white bg-success h-100">
+                        <div class="card-body d-flex align-items-center">
+                            <i class="fa-solid fa-user-check fa-2x me-3"></i>
+                            <div>
+                                <p class="mb-1">本週未戴安全帽</p>
+                                <h3 class="mb-0">0</h3>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 本週累計危險區域警報次數 -->
+                <div class="col-6 col-md-2">
+                    <div class="card text-white bg-success h-100">
+                        <div class="card-body d-flex align-items-center">
+                            <i class="fa-solid fa-exclamation-triangle fa-2x me-3"></i>
+                            <div>
+                                <p class="mb-1">本週危險警報</p>
+                                <h3 class="mb-0">0</h3>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="row g-3">
+            <!-- 左側：長條圖，佔 6/12 -->
+            <div class="col-12 col-md-6 mb-4" style="height: 50%;">
+                <div class="card h-100">
+                    <div class="card-header">場域人員佔比（長條圖）</div>
+                    <div class="card-body">
+                        <canvas id="barChart" style="width:100%; height:250px;"></canvas>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 右側：餅圖，佔 6/12 -->
+            <div class="col-12 col-md-6 mb-4" style="height: 50%;">
+                <div class="card h-100">
+                    <div class="card-header">場域人員佔比（餅圖）</div>
+                    <div class="card-body">
+                        <div id="pieChart" style="width:100%; height:250px;"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="card border-0">
+            <div class="card-header">
+                <h5 class="card-title text-center fw-900">
+                    紀錄
+                </h5>
+            </div>
+            <div class="card-body">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th scope="col">人臉識別</th>
+                            <th scope="col">姓名</th>
+                            <th scope="col">進場時間</th>
+                            <th scope="col">出場時間</th>
+                            <th scope="col">滯留時間</th>
+                            <th scope="col">聯安卡</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <th scope="row"><img src="img/head.png" style="width: 50px; height: 50px;"></th>
+                            <td>丁小雨</td>
+                            <td>2025/03/19 19:10</td>
+                            <td>2025/03/19 19:10</td>
+                            <td>00:30:00</td>
+                            <td>11503021B</td>
+                        </tr>
+                        <tr>
+                            <th scope="row"><img src="img/head.png" style="width: 50px; height: 50px;"></th>
+                            <td>王大陸</td>
+                            <td>2025/03/19 19:10</td>
+                            <td>2025/03/19 19:10</td>
+                            <td>00:30:00</td>
+                            <td>11503021B</td>
+                        </tr>
+                        <tr>
+                            <th scope="row"><img src="img/head.png" style="width: 50px; height: 50px;"></th>
+                            <td>不明人士</td>
+                            <td>2025/03/19 19:10</td>
+                            <td>2025/03/19 19:10</td>
+                            <td>00:30:00</td>
+                            <td>11503021B</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</main>
+
+<script>
+    // --- Chart.js 長條圖 ---
+    const barCtx = document.getElementById('barChart').getContext('2d');
+    new Chart(barCtx, {
+        type: 'bar',
+        data: {
+            labels: ['模組工', '木工', '瓦工', '泥水工', '檢測員'],
+            datasets: [{
+                label: '人數',
+                data: [5, 5, 3, 3, 1],
+                backgroundColor: ['#ff6384', '#36a2eb', '#ffcd56', '#4bc0c0', '#9966ff']
+            }]
+        },
+        options: {
+            responsive: true,
+            plugins: {
+                legend: { display: false },
+                title: { display: false }
+            }
+        }
+    });
+
+    // --- ECharts 餅圖 ---
+    const pieChart = echarts.init(document.getElementById('pieChart'));
+    pieChart.setOption({
+        tooltip: { trigger: 'item' },
+        legend: { orient: 'horizontal', bottom: '0%' },
+        series: [{
+            name: '人數分布',
+            type: 'pie',
+            radius: '60%',
+            data: [
+                { value: 5, name: '模組工' },
+                { value: 5, name: '木工' },
+                { value: 3, name: '瓦工' },
+                { value: 3, name: '泥水工' },
+                { value: 1, name: '檢測員' }
+            ],
+            emphasis: {
+                itemStyle: { shadowBlur: 10, shadowOffsetX: 0, shadowColor: 'rgba(0,0,0,0.5)' }
+            }
+        }]
+    });
+</script>

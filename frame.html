@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>MICAOSYS</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/css/bootstrap.min.css" />
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="stylesheet" href="css/css01.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+</head>
+
+<body>
+  <div class="wrapper d-flex">
+    <!-- Sidebar -->
+    <aside id="sidebar" class="js-sidebar">
+      <div class="sidebar-logo text-center">
+        <a href="#"><img src="img/microsys_logob290x6001-removebg-preview.png" style="height: 30px;"></a>
+      </div>
+      <ul class="sidebar-nav">
+        <li class="sidebar-header">後臺功能</li>
+        <li class="sidebar-item"><a href="#" id="link-dashboard" class="sidebar-link"><i
+              class="fa-solid fa-gauge pe-2"></i> 儀錶板</a></li>
+        <li class="sidebar-item"><a href="#" id="link-kanban" class="sidebar-link"><i
+              class="fa-solid fa-table-columns pe-2"></i> 看板管理</a></li>
+        <!-- 資料管理 with dropdown -->
+        <li class="sidebar-item">
+          <a href="#" class="sidebar-link collapsed" data-bs-toggle="collapse" data-bs-target="#dataSubmenu"
+            aria-expanded="false">
+            <i class="fa-solid fa-database pe-2"></i> 資料管理
+          </a>
+          <ul id="dataSubmenu" class="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
+            <li class="sidebar-item"><a href="#" id="link-person" class="sidebar-link"><i
+                  class="fa-solid fa-user pe-2"></i> 人員管理</a></li>
+            <li class="sidebar-item"><a href="#" id="link-vehicle" class="sidebar-link"><i
+                  class="fa-solid fa-car-side pe-2"></i> 車輛管理</a></li>
+            <li class="sidebar-item"><a href="#" id="link-daily" class="sidebar-link"><i
+                  class="fa-solid fa-book pe-2"></i> 日籍管理</a></li>
+            <li class="sidebar-item"><a href="#" id="link-attendance" class="sidebar-link"><i
+                  class="fa-solid fa-user-check pe-2"></i> 出勤管理</a></li>
+            <li class="sidebar-item"><a href="#" id="link-gate" class="sidebar-link"><i
+                  class="fa-solid fa-door-open pe-2"></i> 門禁管理</a></li>
+            <li class="sidebar-item"><a href="#" id="link-ops" class="sidebar-link"><i
+                  class="fa-solid fa-briefcase pe-2"></i> 實作管理</a></li>
+          </ul>
+        </li>
+        <li class="sidebar-item"><a href="#" id="link-push" class="sidebar-link"><i class="fa-solid fa-bell pe-2"></i>
+            推播管理</a></li>
+        <li class="sidebar-item"><a href="#" id="link-permission" class="sidebar-link"><i
+              class="fa-solid fa-user-shield pe-2"></i> 權限管理</a></li>
+      </ul>
+    </aside>
+
+    <!-- Main -->
+    <div class="main flex-fill">
+      <nav class="navbar navbar-expand px-3 border-bottom">
+        <button class="btn" id="sidebar-toggle" type="button">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="navbar-collapse navbar">
+          <ul class="navbar-nav">
+            <li class="nav-item dropdown">
+              <a href="#" data-bs-toggle="dropdown" class="nav-icon pe-md-0 d-flex align-items-center">
+                <img src="img/head.png" class="avatar img-fluid rounded" alt="Avatar" />
+                <span class="ms-2 fw-900 text-dark">admin</span>
+              </a>
+              <div class="dropdown-menu dropdown-menu-end">
+                <a href="#" class="dropdown-item" id="ManagerInfoLink">帳號資訊</a>
+                <a href="#" class="dropdown-item" id="Manager_settingLink">帳號設定</a>
+                <a href="#" class="dropdown-item">登出</a>
+              </div>
+            </li>
+          </ul>
+        </div>
+      </nav>
+
+      <div class="d-flex flex-column min-vh-100">
+        <div id="content" class="flex-grow-1"></div>
+        <footer class="footer">
+          <div class="container-fluid">
+            <div class="row text-muted">
+              <div class="col-6 text-start">
+                <p class="mb-0">
+                  <a href="#" class="text-muted">
+                    <strong><img src="img/LOGO_MICROSYS文字圖2.png" style="height: 30px;"></strong>
+                  </a>
+                </p>
+              </div>
+              <div class="col-6 text-end">
+                <ul class="list-inline">
+                  <li class="list-inline-item"><a href="#" class="text-muted">內容</a></li>
+                  <li class="list-inline-item"><a href="#" class="text-muted">關於</a></li>
+                  <li class="list-inline-item"><a href="#" class="text-muted">條款</a></li>
+                  <li class="list-inline-item"><a href="#" class="text-muted">訂閱</a></li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </footer>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/js/bootstrap.bundle.min.js"></script>
+  <!-- Chart.js -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <!-- ECharts -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/echarts/5.4.2/echarts.min.js"></script>
+  <script src="js/jquery-3.7.1.min.js"></script>
+  <script src="js/script.js"></script>
+  <script src="admin.js"></script>
+
+  <script>
+    $(document).ready(function () {
+      // 預設載入：儀錶板
+      $("#content").load("dashboard.html");
+
+      // 主選單
+      $("#link-dashboard").click(function (e) {
+        e.preventDefault();
+        $("#content").load("dashboard.html");
+      });
+      $("#link-kanban").click(function (e) {
+        e.preventDefault();
+        $("#content").load("kanban.html");
+      });
+      $("#link-push").click(function (e) {
+        e.preventDefault();
+        $("#content").load("push.html");
+      });
+      $("#link-permission").click(function (e) {
+        e.preventDefault();
+        $("#content").load("permission.html");
+      });
+
+      // 資料管理子選單
+      $("#link-person").click(function (e) {
+        e.preventDefault();
+        $("#content").load("person.html");
+      });
+      $("#link-vehicle").click(function (e) {
+        e.preventDefault();
+        $("#content").load("vehicle.html");
+      });
+      $("#link-daily").click(function (e) {
+        e.preventDefault();
+        $("#content").load("daily.html");
+      });
+      $("#link-attendance").click(function (e) {
+        e.preventDefault();
+        $("#content").load("attendance.html");
+      });
+      $("#link-gate").click(function (e) {
+        e.preventDefault();
+        $("#content").load("gate.html");
+      });
+      $("#link-ops").click(function (e) {
+        e.preventDefault();
+        $("#content").load("ops.html");
+      });
+
+      // 管理者相關
+      $("#ManagerInfoLink").click(function (e) {
+        e.preventDefault();
+        $("#content").load("Manager.html");
+      });
+      $("#Manager_settingLink").click(function (e) {
+        e.preventDefault();
+        $("#content").load("Manager_setting.html");
+      });
+    });
+  </script>
+
+</body>
+
+</html>
